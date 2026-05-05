@@ -42,6 +42,7 @@ Homestead.yaml
 Homestead.json
 /.vagrant
 .phpunit.result.cache
->>>>>>> 013463128360d7cf1acf35e194e0e1c8e85d938b
-Clinic.tar
-Clinic.tar
+coreexp.php
+errst.php
+*.tar
+*.zip
