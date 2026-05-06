@@ -18,11 +18,17 @@
                     <div class="row">
                         <div class="col-md-3">
                             <div class="card-body">
-                                <div class="form-group">
-                                    <label for="sale_date">Ngày</label>
-                                    <input id="start_sale_date" name="start_sale_date" class="form-control" value="{{ old('start_sale_date', request('start_sale_date')) }}" placeholder="dd-mm-yyyy">
-                                    ~
-                                    <input id="end_sale_date" name="end_sale_date" class="form-control" value="{{ old('end_sale_date', request('end_sale_date')) }}" placeholder="dd-mm-yyyy">
+                                <div class="form-group d-flex align-items-center mb-2">
+                                    <label class="mb-0 mr-3" style="width: 80px; white-space: nowrap;">Ngày</label>
+                                    <div class="d-flex align-items-center flex-fill">
+                                        <input id="start_sale_date" name="start_sale_date" class="form-control"
+                                               value="{{ old('start_sale_date', request('start_sale_date')) }}"
+                                               placeholder="dd-mm-yyyy">
+                                        <span class="text-muted mx-2">~</span>
+                                        <input id="end_sale_date" name="end_sale_date" class="form-control"
+                                               value="{{ old('end_sale_date', request('end_sale_date')) }}"
+                                               placeholder="dd-mm-yyyy">
+                                    </div>
                                 </div>
                             </div>
                         </div>
