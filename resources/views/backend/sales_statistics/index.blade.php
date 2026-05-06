@@ -52,7 +52,7 @@
                                 <tbody>
                                 @foreach ($salesStatistics as $salesStatistic)
                                     <tr class="text-center">
-                                        <td><a target="_blank" href="{{ route('sale.details.index', ['sale_date' => $salesStatistic->sale_date . ' ~ ' . $salesStatistic->sale_date]) }}">{{ $salesStatistic->sale_date }}</a></td>
+                                        <td><a target="_blank" href="{{ route('sale.details.index', ['start_sale_date' => $salesStatistic->sale_date ,'end_sale_date' => $salesStatistic->sale_date]) }}">{{ $salesStatistic->sale_date }}</a></td>
                                         <td>{{ number_format($salesStatistic->total_sales, 0, ',', '.') }}</td>
                                         <td>{{ number_format($salesStatistic->total_cost, 0, ',', '.') }}</td>
                                         <td>{{ number_format($salesStatistic->total_profit, 0, ',', '.') }}</td>
