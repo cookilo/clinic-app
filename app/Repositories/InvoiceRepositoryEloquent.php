@@ -38,32 +38,6 @@ class InvoiceRepositoryEloquent extends BaseRepository implements InvoiceReposit
         return $this->model->findOrFail($id);
     }
 
-
-    public function findInvoicesByDate(string $date, array $conditions = []): Collection|array|null
-    {
-        try {
-            // Chuyển đổi từ định dạng d-m-Y sang Y-m-d H:i:s để tìm kiếm
-            $startDate = Carbon::createFromFormat('d-m-Y', $date)->startOfDay();
-            $endDate = Carbon::createFromFormat('d-m-Y', $date)->endOfDay();
-
-            // Tạo query bằng query builder
-            $query = $this->model->newQuery();
-
-            // Thêm điều kiện từ $conditions
-            foreach ($conditions as $key => $value) {
-                $query->where($key, $value);
-            }
-
-            // Thêm điều kiện whereBetween với created_at gốc
-            $query->whereBetween('created_at', [$startDate, $endDate]);
-
-            // Thực thi query và trả về kết quả
-            return $query->orderBy('created_at', 'desc')->get();
-        } catch (\Exception $e) {
-            return null; // Trả về null nếu có lỗi
-        }
-    }
-
     public function search($searchParams)
     {
         return $this->model->where(function ($query) use ($searchParams) {
@@ -97,5 +71,33 @@ class InvoiceRepositoryEloquent extends BaseRepository implements InvoiceReposit
                 });
             }
         });
+    }
+
+    public function findInvoicesByDate(string $date, array $conditions = []): Collection|array|null
+    {
+        try {
+            $startDate = Carbon::createFromFormat('d-m-Y', $date)->startOfDay();
+            $endDate   = Carbon::createFromFormat('d-m-Y', $date)->endOfDay();
+
+            $query = $this->model->newQuery();
+
+            foreach ($conditions as $key => $value) {
+                $query->where($key, $value);
+            }
+
+            return $query->whereBetween('created_at', [$startDate, $endDate])
+                         ->orderBy('created_at', 'desc')
+                         ->get();
+        } catch (\Exception $e) {
+            return null;
+        }
+    }
+
+    public function findWhereOrdered(array $conditions): Collection
+    {
+        return $this->model->newQuery()
+                           ->where($conditions)
+                           ->orderBy('created_at', 'desc')
+                           ->get();
     }
 }

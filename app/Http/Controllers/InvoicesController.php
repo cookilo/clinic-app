@@ -83,23 +83,22 @@ class InvoicesController extends Controller
     public function index(Request $request): Application|Factory|View|\Illuminate\Foundation\Application
     {
         $patientId = $request->query('patient_id');
-        if ($patientId) {
 
-            $conditions = [];
+        if ($patientId) {
+            $conditions               = [];
             $createdAt                = $request->query('created_at');
             $conditions['patient_id'] = $patientId;
 
             if ($createdAt) {
                 $invoices = $this->repository->findInvoicesByDate($createdAt, $conditions);
             } else {
-                $invoices = $this->repository->findWhere($conditions)->sortByDesc('created_at');
+                $invoices = $this->repository->findWhereOrdered($conditions);
             }
 
             $patient = $this->patientRepository->find($conditions['patient_id']);
 
             return view('backend.invoices.index', compact('invoices', 'patient'));
         } else {
-
             $searchParams = request()->only(['start_created_at', 'end_created_at', 'patient_name']);
             $invoices     = $this->repository->search($searchParams)->orderBy('created_at', 'desc')->paginate(50);
             return view('backend.invoices.list', compact('invoices'));
