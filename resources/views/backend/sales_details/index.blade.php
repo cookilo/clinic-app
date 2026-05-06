@@ -15,44 +15,39 @@
                 <div class="card-header">
                     <h3 class="card-title">Tìm kiếm</h3>
                 </div>
-                <form action="{{route('sale.details.index')}}" method="GET">
-                    <div class="row">
-                        <div class="col-md-3">
-                            <div class="card-body">
-                                <div class="form-group">
-                                    <label for="sale_date">Ngày</label>
-                                    <input id="start_sale_date" name="start_sale_date" class="form-control" value="{{ request('start_sale_date') }}" placeholder="dd-mm-yyyy">
-                                    ~
-                                    <input id="end_sale_date" name="end_sale_date" class="form-control" value="{{ request('end_sale_date') }}" placeholder="dd-mm-yyyy">
-                                </div>
+                <form action="{{ route('sale.details.index') }}" method="GET">
+                    <div class="card-body">
+                        <div class="form-group d-flex align-items-center mb-2">
+                            <label class="mb-0 mr-3" style="width: 80px; white-space: nowrap;">Ngày</label>
+                            <div class="d-flex align-items-center flex-fill">
+                                <input id="start_sale_date" name="start_sale_date" class="form-control"
+                                       value="{{ request('start_sale_date') }}" placeholder="dd-mm-yyyy">
+                                <span class="text-muted mx-2">~</span>
+                                <input id="end_sale_date" name="end_sale_date" class="form-control"
+                                       value="{{ request('end_sale_date') }}" placeholder="dd-mm-yyyy">
                             </div>
                         </div>
-                        <div class="col-md-3">
-                            <div class="card-body">
-                                <div class="form-group">
-                                    <label for="medication_name">Tên thuốc</label>
-                                    <input id="medication_name" name="medication_name" class="form-control" value="{{ request('medication_name') }}" placeholder="Nhập từ khóa">
-                                </div>
-                            </div>
+                        <div class="form-group d-flex align-items-center mb-2">
+                            <label for="medication_name" class="mb-0 mr-3" style="width: 80px; white-space: nowrap;">Tên thuốc</label>
+                            <input id="medication_name" name="medication_name" class="form-control flex-fill"
+                                   value="{{ request('medication_name') }}" placeholder="Nhập từ khóa">
                         </div>
-                        <div class="col-md-3">
-                            <div class="card-body">
-                                <div class="form-group">
-                                    <label for="selectMedication">Thuốc</label>
-                                    <select id="selectMedication" name="medication_id" class="form-control">
-                                        @foreach ($medications as $medication)
-                                            <option value="">Tất cả thuốc</option>
-                                            <option value="{{ $medication->id }}" {{ request('medication_id') == $medication->id ? 'selected' : '' }}>
-                                                {{ $medication->name }}
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
+                        <div class="form-group d-flex align-items-center mb-0">
+                            <label for="selectMedication" class="mb-0 mr-3" style="width: 80px; white-space: nowrap;">Thuốc</label>
+                            <select id="selectMedication" name="medication_id" class="form-control flex-fill">
+                                <option value="">Tất cả thuốc</option>
+                                @foreach ($medications as $medication)
+                                    <option value="{{ $medication->id }}" {{ request('medication_id') == $medication->id ? 'selected' : '' }}>
+                                        {{ $medication->name }}
+                                    </option>
+                                @endforeach
+                            </select>
                         </div>
                     </div>
                     <div class="card-footer">
-                        <button type="submit" class="btn btn-primary"><i class="fa fa-lg fa-fw fa-search"></i>Tìm kiếm</button>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fa fa-search mr-1"></i> Tìm kiếm
+                        </button>
                     </div>
                 </form>
             </div>
