@@ -46,7 +46,7 @@
                                 <tbody>
                                 @foreach ($invoices as $invoice)
                                     <tr class="text-center">
-                                        <td><td>{{ \Carbon\Carbon::parse($invoice->created_at)->format('Y-m-d') }}</td></td>
+                                        <td>{{ \Carbon\Carbon::parse($invoice->created_at)->format('Y-m-d') }}</td>
                                         <td>
                                             <a class="btn btn-xs btn-default text-info mx-1 shadow" href="{{ route('invoices.show', ['invoice' => $invoice->id, 'patient_id' => request()->get('patient_id')]) }}">
                                                 <i class="fa fa-lg fa-fw fa-eye"></i>
